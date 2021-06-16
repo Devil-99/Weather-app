@@ -23,16 +23,31 @@
             height: 100%;
         }
         .box{
+            margin: 10px;
             width: 20vw;
             height: 60vh;
             border-radius: 0.5rem;
-            box-shadow: 0 0.2rem 3rem rgba(0, 0, 0, 0.253);
-            background: #a5bbdd;
+            box-shadow: -0.5rem 0.5rem 1rem rgba(255, 255, 255, 0.541);
+            background: #fdff8a;
             position: relative;
             overflow: hidden;
             transform: translate3d(0,0,0);
             min-width: 20rem;
             min-height: 30rem;
+        }
+        .box2{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            width: 20vw;
+            height: 60vh;
+            border-radius: 0.5rem;
+            box-shadow: 0.5rem 0.5rem 1rem rgba(255, 255, 255, 0.541);
+            background: #afff8a;
+            position: relative;
+            overflow: hidden;
         }
         #weathercondition{
             height: 55%;
@@ -49,13 +64,9 @@
             from{transform: scale(0.8);}
             to{transform: scale(1.2);}
         }
-        #wthCond{
-            color: rgb(195, 255, 97);
-            margin: -45px;
+        .describe{
+            color: rgb(0, 0, 0);
             padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-size: 1.5rem;
         }
         .info{
@@ -82,13 +93,13 @@
         #date{
             text-align: center;
             margin-top: 0.7rem;
-            color: #ffffff;
+            color: #130046;
             font-size: 1.3rem;
             font-weight: 300;
             text-transform: uppercase;
         }
         .temp{
-            color: rgb(255, 255, 161);
+            color: rgb(255, 126, 66);
             margin-top: 2.5rem;
             text-align: center;
             font-size: 3rem;
@@ -96,19 +107,24 @@
     </style>
     <title>Weather App</title>
 </head>
-<body>
+<body id="body">
     <div class="box">
 
         <div id="weathercondition">
-            <p>fuck</p>
+            <p>###</p>
         </div>
-        <h3 id="wthCond">{%cond%}</h3>
         <div class="info">
             <h2 class="location"><i class="fas fa-street-view"></i>{%location%}-{%country%}</h2>
             <p id="date">Tues | 01 JUN | 17:02</p>
             <h1 class="temp">{%tempval%}</h1>
         </div>
 
+    </div>
+    <div class="box2">
+        <h2 class="describe">Description - {%cond%}</h2>
+        <h2 class="describe">Humidity - {%humid%}%</h2>
+        <h2 class="describe">Wind Speed - {%wind%} km/h</h2>
+        <h2 class="describe">Min - {%tempmin%} : Max - {%tempmax%}</h2>
     </div>
     <script>
         const currentDate=document.getElementById("date");
@@ -124,7 +140,7 @@
             weathercon.innerHTML = "<i class='fas fa-cloud' style='color: rgb(66, 69, 99)'></i>";
         }
         else if(tempStat=="Rain"){
-            weathercon.innerHTML = "<i class='fas fa-umbrella' style='color: #f1f2f6'></i>";
+            weathercon.innerHTML = "<i class='fas fa-umbrella' style='color: rgb(40, 54, 134)'></i>";
         }
         else{
             weathercon.innerHTML = "<i class='fas fa-cloud-sun' style='color: rgb(240, 240, 124)'></i>";
@@ -148,6 +164,8 @@
         const currTime=()=>{
             let hours=calender.getHours();
             let mins = calender.getMinutes();
+            if(mins<10)
+            {mins="0"+mins;}
             let s=hours+":"+mins;
             return `${hours}:${mins}`;
         }

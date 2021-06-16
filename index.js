@@ -2,7 +2,7 @@ const http=require('http');
 const fs=require('fs');
 var requests=require('requests');
 
-const homeFile=fs.readFileSync('home.html','utf-8');
+const homeFile=fs.readFileSync('index.html','utf-8');
 
 const replaceVal =(prev,pres)=>{
     let temperature=prev.replace("{%tempval%}",pres.main.temp);
@@ -10,6 +10,11 @@ const replaceVal =(prev,pres)=>{
     temperature=temperature.replace("{%country%}",pres.sys.country);
     temperature=temperature.replace("{%status%}",pres.weather[0].main);
     temperature=temperature.replace("{%cond%}",pres.weather[0].description);
+    temperature=temperature.replace("{%humid%}",pres.main.humidity);
+    temperature=temperature.replace("{%tempmin%}",pres.main.temp_min);
+    temperature=temperature.replace("{%tempmax%}",pres.main.temp_max);
+    temperature=temperature.replace("{%wind%}",pres.wind.speed);
+
     //console.log(pres.weather[0].main);
     return temperature;
 }
@@ -17,7 +22,7 @@ const replaceVal =(prev,pres)=>{
 const server = http.createServer((req,res)=>{
     if(req.url=='/')
     {
-        requests("http://api.openweathermap.org/data/2.5/weather?q=Bankura&units=metric&appid=4580466da90099b152f2a5bf0ec183c1")
+        requests("http://api.openweathermap.org/data/2.5/weather?q=Kolkata&units=metric&appid=4580466da90099b152f2a5bf0ec183c1")
         .on("data",(chunk)=>{
             const objData=JSON.parse(chunk);
             const arrData=[objData];
