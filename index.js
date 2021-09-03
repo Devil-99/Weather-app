@@ -22,7 +22,7 @@ const replaceVal =(prev,pres)=>{
 const server = http.createServer((req,res)=>{
     if(req.url=='/')
     {
-        requests("http://api.openweathermap.org/data/2.5/weather?q=Kolkata&units=metric&appid=4580466da90099b152f2a5bf0ec183c1")
+        requests("http://api.openweathermap.org/data/2.5/weather?q=Bankura&units=metric&appid=4580466da90099b152f2a5bf0ec183c1")
         .on("data",(chunk)=>{
             const objData=JSON.parse(chunk);
             const arrData=[objData];
