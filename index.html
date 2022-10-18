@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/86564c64d0.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f7e10d98dd.js" crossorigin="anonymous"></script>
     <style>
         *{
             margin: 0;
@@ -56,7 +56,7 @@
             align-items: center;
             font-size: 3rem;
         }
-        #weathercondition .fas{
+        #weathercondition .fa-solid{
             font-size: 6rem;
             animation: fas-anime 3s linear infinite alternate;
         }
@@ -105,6 +105,7 @@
             font-size: 3rem;
         }
     </style>
+    
     <title>Weather App</title>
 </head>
 <body id="body">
@@ -114,7 +115,7 @@
             <p>###</p>
         </div>
         <div class="info">
-            <h2 class="location"><i class="fas fa-street-view"></i>{%location%}-{%country%}</h2>
+            <h2 class="location"><i class="fa-solid fa-street-view"></i></i>{%location%}-{%country%}</h2>
             <p id="date">Tues | 01 JUN | 17:02</p>
             <h1 class="temp">{%tempval%}</h1>
         </div>
@@ -126,50 +127,57 @@
         <h2 class="describe">Wind Speed - {%wind%} km/h</h2>
         <h2 class="describe">Min - {%tempmin%} : Max - {%tempmax%}</h2>
     </div>
+    
     <script>
-        const currentDate=document.getElementById("date");
-        let weathercon =document.getElementById("weathercondition");
-        var tempStat= "{%status%}";
-        //weathercon.innerHTML = tempStat;
-        //weathercon.innerHTML = "<i class='fas fa-cloud-rain' style='color: #f1f2f6'></i>";
-        //console.log("{%status%}");
-        if(tempStat=="Sunny"){
-            weathercon.innerHTML = "<i class='fas fa-sun' style='color: rgb(255, 213, 97)'></i>";
-        }
-        else if(tempStat=="Clouds"){
-            weathercon.innerHTML = "<i class='fas fa-cloud' style='color: rgb(66, 69, 99)'></i>";
-        }
-        else if(tempStat=="Rain"){
-            weathercon.innerHTML = "<i class='fas fa-umbrella' style='color: rgb(40, 54, 134)'></i>";
-        }
-        else{
-            weathercon.innerHTML = "<i class='fas fa-cloud-sun' style='color: rgb(240, 240, 124)'></i>";
-        }
+        main();
+        window.setInterval('main()',6000);
+        function main(){
+            let weathercon=document.getElementById("weathercondition");
+            var tempStat= "{%status%}";
+            //weathercon.innerHTML = tempStat;
+            //weathercon.innerHTML = "<i class='fas fa-cloud-rain' style='color: #f1f2f6'></i>";
+            console.log(tempStat);
+            if(tempStat=="Sunny"){
+                weathercon.innerHTML = "<i class='fa-solid fa-sun' style='color: rgb(255, 213, 97)'></i>";
+            }
+            else if(tempStat=="Clouds"){
+                weathercon.innerHTML = "<i class='fa-solid fa-cloud' style='color: rgb(66, 69, 99)'></i>";
+            }
+            else if(tempStat=="Rain"){
+                weathercon.innerHTML = "<i class='fa-solid fa-umbrella' style='color: rgb(40, 54, 134)'></i>";
+            }
+            else{
+                weathercon.innerHTML = "<i class='fa-solid fa-cloud-sun' style='color: rgb(33, 45, 95)'></i>";
+            }
+            
+            var days=["Sun","Mon","Tue","Wed","Thurs","Fri","Sat"];
+            var months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-        var days=["Sun","Mon","Tue","Wed","Thurs","Fri","Sat"];
-        var months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-        var calender=new Date();
-        const currDay=()=>{
-            let i=calender.getDay();
-            return days[i];
+            var calender=new Date();
+            const currDay=()=>{
+                let i=calender.getDay();
+                return days[i];
+            }
+            const currDate=()=>{
+            let m=calender.getMonth();
+            let day=calender.getDate();
+            //let year=calender.getFullYear();
+                let s=day+"/"+months[m];
+                return `${day} / ${months[m]}`;
+            }
+            const currTime=()=>{
+                let hours=calender.getHours();
+                let mins = calender.getMinutes();
+                if(mins<10)
+                {mins="0"+mins;}
+                let s=hours+":"+mins;
+                return `${hours}:${mins}`;
+            }
+            
+            const currentDate=document.getElementById("date");
+            currentDate.innerHTML = currDay()+" | "+currDate()+" | "+currTime();
         }
-        const currDate=()=>{
-           let m=calender.getMonth();
-           let day=calender.getDate();
-           //let year=calender.getFullYear();
-            let s=day+"/"+months[m];
-            return `${day} / ${months[m]}`;
-        }
-        const currTime=()=>{
-            let hours=calender.getHours();
-            let mins = calender.getMinutes();
-            if(mins<10)
-            {mins="0"+mins;}
-            let s=hours+":"+mins;
-            return `${hours}:${mins}`;
-        }
-        currentDate.innerHTML = currDay()+" | "+currDate()+" | "+currTime();
+        
     </script>
 </body>
 </html>

@@ -28,7 +28,7 @@ const server = http.createServer((req,res)=>{
             const arrData=[objData];
             const realtimeData = arrData.map((val)=>replaceVal(homeFile,val)).join("");
             res.write(realtimeData);
-            //console.log(realtimeData);
+            // console.log(objData);
         })
         .on("end",(err)=>{
             if(err)
