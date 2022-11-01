@@ -39,9 +39,9 @@ const server = http.createServer((req,res)=>{
     }
 });
 
-server.listen(5000,(err)=>{
-    if(err)
-    console.log("404 error");
-    else
-    console.log("Server is running on port 5000");
-})
+// server.listen(5000,(err)=>{
+//     if(err)
+//     console.log("404 error");
+//     else
+//     console.log("Server is running on port 5000");
+// })
