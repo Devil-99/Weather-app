@@ -39,7 +39,7 @@ const server = http.createServer((req,res)=>{
     }
 });
 
-server.listen(5000,(err)=>{
+server.listen(process.env.PORT || 5000,(err)=>{
     if(err)
     console.log("404 error");
     else
