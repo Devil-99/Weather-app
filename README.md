@@ -8,3 +8,5 @@ A real-time weather app based on openweathermap api
 - "index.html" file is the UI page.
 
 ![Getting Started](Screenshot.png)
+
+https://locaweatherapp.herokuapp.com/
