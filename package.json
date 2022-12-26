@@ -1,6 +1,7 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
+  "type": "commonjs",
   "description": "Creating Weather-app",
   "main": "index.js",
   "scripts": {

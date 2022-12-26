@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f7e10d98dd.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            font-size: 25px;
+        }
+        html{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        #searchbar{
+            height: 3em;
+            width: 20em;
+            padding-left: 5px;
+        }
+        .mainbox{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            height: 75%;
+            width: 75%;
+        }
+        .box1{
+            margin: 10px;
+            width: 20vw;
+            height: 60vh;
+            border-radius: 0.5rem;
+            box-shadow: -0.5rem 0.5rem 1rem rgba(255, 255, 255, 0.541);
+            background: #fdff8a;
+            position: relative;
+            overflow: hidden;
+            transform: translate3d(0,0,0);
+            min-width: 15em;
+            min-height: 25em;
+        }
+        .box2{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            width: 20vw;
+            height: 60vh;
+            border-radius: 0.5rem;
+            box-shadow: 0.5rem 0.5rem 1rem rgba(255, 255, 255, 0.541);
+            background: #afff8a;
+            position: relative;
+            overflow: hidden;
+            min-width: 15em;
+            min-height: 25em;
+        }
+        #weathercondition{
+            height: 55%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+        #weathercondition .fa-solid{
+            font-size: 6rem;
+            animation: fas-anime 3s linear infinite alternate;
+        }
+        @keyframes fas-anime{
+            from{transform: scale(0.8);}
+            to{transform: scale(1.2);}
+        }
+        .describe{
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            font-size: 1.5rem;
+        }
+        .info{
+            position: absolute;
+            bottom: 2rem;
+            width: 100%;
+            height: 45%;
+            z-index: 4;
+        }
+        .location{
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 800;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        .fa-street-view{
+            animation: rotates 3s linear infinite alternate;
+        }
+        @keyframes rotates{
+            from{transform: translateX(-1em);}
+            to{transform: translateX(0rem);}
+        }
+        #date{
+            text-align: center;
+            margin-top: 0.7rem;
+            color: #130046;
+            font-size: 1rem;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        .temp{
+            color: rgb(255, 126, 66);
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 2.5em;
+        }
+    </style>
+    <title>Weather App</title>
+</head>
+<body id="body">
+    <!-- <div id="inputbox">
+        <input id="searchbar" placeholder="Enter Location">
+        <button id="searchbutton" onclick="getLocation()">Search</button>
+    </div> -->
+    <div class="mainbox">
+        <div class="box1">
+            <div id="weathercondition">
+                <p>Placeholder for icons</p>
+            </div>
+            <div class="info">
+                <h2 class="location"><i class="fa-solid fa-street-view"></i></i>{%location%}-{%country%}</h2>
+                <p id="date">Tues | 01 JUN | 17:02</p>
+                <h1 class="temp">{%tempval%}</h1>
+            </div>
+        </div>
+        <div class="box2">
+            <h2 class="describe">Description - {%cond%}</h2>
+            <h2 class="describe">Humidity - {%humid%}%</h2>
+            <h2 class="describe">Wind Speed - {%wind%} km/h</h2>
+            <h2 class="describe">Min - {%tempmin%} : Max - {%tempmax%}</h2>
+        </div>
+    </div>
+<script>
+    let weathercon=document.getElementById("weathercondition");
+    var tempStat= "{%status%}";
+
+    if(tempStat=="Sunny"){
+        weathercon.innerHTML = "<i class='fa-solid fa-sun' style='color: rgb(255, 213, 97)'></i>";
+    }
+    else if(tempStat=="Clouds"){
+        weathercon.innerHTML = "<i class='fa-solid fa-cloud' style='color: rgb(66, 69, 99)'></i>";
+    }
+    else if(tempStat=="Rain"){
+        weathercon.innerHTML = "<i class='fa-solid fa-umbrella' style='color: rgb(40, 54, 134)'></i>";
+    }
+    else{
+        weathercon.innerHTML = "<i class='fa-solid fa-cloud-sun' style='color: rgb(33, 45, 95)'></i>";
+    }
+
+    main();
+    window.setInterval('main()',6000);
+
+    function main(){
+        var days=["Sun","Mon","Tue","Wed","Thurs","Fri","Sat"];
+        var months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+        var calender=new Date();
+        const currDay=()=>{
+            let i=calender.getDay();
+            return days[i];
+        }
+        const currDate=()=>{
+        let m=calender.getMonth();
+        let day=calender.getDate();
+            let s=day+"/"+months[m];
+            return `${day} / ${months[m]}`;
+        }
+        const currTime=()=>{
+            let hours=calender.getHours();
+            let mins = calender.getMinutes();
+            if(mins<10)
+            {mins="0"+mins;}
+            let s=hours+":"+mins;
+            return `${hours}:${mins}`;
+        }
+        
+        const currentDate=document.getElementById("date");
+        currentDate.innerHTML = currDay()+" | "+currDate()+" | "+currTime();
+    }
+
+    // function getLocation(){
+    //     const city = document.getElementById("searchbar").value;
+    //     console.log("Button Clicked -",city);
+    // }
+
+</script>    
+</body>
+</html>
