@@ -156,9 +156,16 @@
     <script>
         let weathercon=document.getElementById("weathercondition");
         var tempStat= "{%status%}";
+        console.log(tempStat);
 
         if(tempStat=="Sunny"){
             weathercon.innerHTML = "<i class='fa-solid fa-sun' style='color: rgb(255, 213, 97)'></i>";
+        }
+        else if(tempStat=="Clear"){
+            weathercon.innerHTML = "<i class='fa-solid fa-moon' style='color: rgb(255, 242, 141)'></i>";
+        }
+        else if(tempStat=="Mist" || tempStat=="Smoke"){
+            weathercon.innerHTML = "<i class='fa-solid fa-smog' style='color: rgb(160, 160, 160)'></i>";
         }
         else if(tempStat=="Clouds"){
             weathercon.innerHTML = "<i class='fa-solid fa-cloud' style='color: rgb(66, 69, 99)'></i>";
