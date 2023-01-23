@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyparser.urlencoded({extended:true}));
 
 try{
-var homeFile = fs.readFileSync('./public/landingPage.html','utf-8');}
+var homeFile = fs.readFileSync('./landingPage.html','utf-8');}
 catch(err){
     console.log(err);
 }
