@@ -270,7 +270,7 @@
         }
 
         if(tempStat=="Sunny" || tempStat=="Clear"){
-            if(calender.getHours() <= 18)
+            if(calender.getHours() < 18)
             weathercon.innerHTML = "<i class='fa-solid fa-sun' style='color: rgb(255, 213, 97)'></i>";
             else
             weathercon.innerHTML = "<i class='fa-solid fa-moon' style='color: rgb(255, 242, 141)'></i>";
