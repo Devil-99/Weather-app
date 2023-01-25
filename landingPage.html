@@ -13,7 +13,7 @@
             padding: 0;
         }
         body{
-            background-image:url('https://source.unsplash.com/1600x900/?landscape');
+            background-image:url('https://source.unsplash.com/1600x900/?{%localimage%}');
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -118,6 +118,7 @@
         }
         .fa-street-view{
             animation: rotates 3s linear infinite alternate;
+            padding: 0.5rem;
         }
         @keyframes rotates{
             from{transform: translateX(-1em);}
@@ -133,9 +134,16 @@
         }
         .temp{
             color: rgb(255, 126, 66);
-            margin-top: 2rem;
+            margin: 1.5rem 0 0 0;
             text-align: center;
-            font-size: 2.5em;
+            font-size: 2.5rem;
+        }
+        .feeltemp{
+            color: rgb(255, 126, 66);
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 300;
+            margin: 0;
         }
         @media screen and (min-width:250px) and (max-width:500px) {
             html{
@@ -190,7 +198,7 @@
                 padding: 0.5rem;
             }
             .location{
-                font-size: 0.8rem;
+                font-size: 1rem;
             }
             .fa-street-view{
                 animation: rotates 3s linear infinite alternate;
@@ -198,12 +206,15 @@
                 padding: 0.5rem;
             }
             #date{
-                font-size: 0.6rem;
+                font-size: 0.5rem;
                 font-weight: 300;
                 text-transform: uppercase;
             }
             .temp{
-                font-size: 2em;
+                font-size: 2rem;
+            }
+            .feeltemp{
+                font-size: 0.5rem;
             }
         }
     </style>
@@ -220,27 +231,48 @@
                     <input id="searchbar" name="location" placeholder="Enter Location">
                     <button id="searchbutton" ><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
-                <h2 class="location"><i class="fa-solid fa-street-view"></i></i>{%location%}-{%country%}</h2>
-                <p id="date">Tues | 01 JUN | 17:02</p>
-                <h1 class="temp">{%tempval%}</h1>
+                <h2 class="location"><i class="fa-solid fa-street-view"></i></i>{%city%}-{%country%}</h2>
+                <p id="date"><i>Tues | 01 JAN | 17:02</i></p>
+                <h1 class="temp">{%tempval%}°c</h1>
+                <h2 class="feeltemp"><i>Feels Like - {%feeltemp%}°c</i></h2>
             </div>
         </div>
         <div class="box2">
             <h2 class="describe">Description - {%cond%}</h2>
             <h2 class="describe">Humidity - {%humid%}%</h2>
             <h2 class="describe">Wind Speed - {%wind%} km/h</h2>
-            <h2 class="describe">Min - {%tempmin%} : Max - {%tempmax%}</h2>
+            <h2 class="describe">Visibility - {%visibility%} km/h</h2>
         </div>
     </div>  
     <script>
         let weathercon=document.getElementById("weathercondition");
         var tempStat= "{%status%}";
-        console.log(tempStat);
 
-        if(tempStat=="Sunny"){
-            weathercon.innerHTML = "<i class='fa-solid fa-sun' style='color: rgb(255, 213, 97)'></i>";
+        var days=["Sun","Mon","Tue","Wed","Thurs","Fri","Sat"];
+        var months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        var calender=new Date();
+
+        const currDay=()=>{
+            let i=calender.getDay();
+            return days[i];
         }
-        else if(tempStat=="Clear"){
+        const currDate=()=>{
+            let m=calender.getMonth();
+            let day=calender.getDate();
+            return `${day} / ${months[m]}`;
+        }
+        const currTime=()=>{
+            let hours=calender.getHours();
+            let mins = calender.getMinutes();
+            if(mins<10)
+            {mins="0"+mins;}
+            return `${hours}:${mins}`;
+        }
+
+        if(tempStat=="Sunny" || tempStat=="Clear"){
+            if(calender.getHours() <= 18)
+            weathercon.innerHTML = "<i class='fa-solid fa-sun' style='color: rgb(255, 213, 97)'></i>";
+            else
             weathercon.innerHTML = "<i class='fa-solid fa-moon' style='color: rgb(255, 242, 141)'></i>";
         }
         else if(tempStat=="Mist" || tempStat=="Smoke"){
@@ -256,36 +288,12 @@
             weathercon.innerHTML = "<i class='fa-solid fa-cloud-sun' style='color: rgb(160, 160, 160)'></i>";
         }
 
-        main();
-        window.setInterval('main()',6000);
-
         function main(){
-            var days=["Sun","Mon","Tue","Wed","Thurs","Fri","Sat"];
-            var months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-            var calender=new Date();
-            const currDay=()=>{
-                let i=calender.getDay();
-                return days[i];
-            }
-            const currDate=()=>{
-            let m=calender.getMonth();
-            let day=calender.getDate();
-                let s=day+"/"+months[m];
-                return `${day} / ${months[m]}`;
-            }
-            const currTime=()=>{
-                let hours=calender.getHours();
-                let mins = calender.getMinutes();
-                if(mins<10)
-                {mins="0"+mins;}
-                let s=hours+":"+mins;
-                return `${hours}:${mins}`;
-            }
-            
             const currentDate=document.getElementById("date");
             currentDate.innerHTML = currDay()+" | "+currDate()+" | "+currTime();
         }
+        main();
+        window.setInterval( main, 10000 );
 
     </script>
 

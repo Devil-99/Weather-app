@@ -14,14 +14,15 @@ catch(err){
 
 const replaceVal =(prev,pres)=>{
     let temperature=prev.replace("{%tempval%}",pres.main.temp);
-    temperature=temperature.replace("{%location%}",pres.name);
+    temperature=temperature.replace("{%feeltemp%}",pres.main.feels_like);
+    temperature=temperature.replace("{%localimage%}",pres.name);
+    temperature=temperature.replace("{%city%}",pres.name);
     temperature=temperature.replace("{%country%}",pres.sys.country);
     temperature=temperature.replace("{%status%}",pres.weather[0].main);
     temperature=temperature.replace("{%cond%}",pres.weather[0].description);
     temperature=temperature.replace("{%humid%}",pres.main.humidity);
-    temperature=temperature.replace("{%tempmin%}",pres.main.temp_min);
-    temperature=temperature.replace("{%tempmax%}",pres.main.temp_max);
     temperature=temperature.replace("{%wind%}",pres.wind.speed);
+    temperature=temperature.replace("{%visibility%}",pres.visibility/1000);
 
     return temperature;
 }
