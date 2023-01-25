@@ -36,6 +36,7 @@
         .box1{
             height: 100%;
             width: 80%;
+            margin: 2rem;
             font-size: 0.8rem;
             border-radius: 0.5rem;
             box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 70%);
@@ -48,6 +49,7 @@
         .box2{
             height: 100%;
             width: 70%;
+            margin: 2rem;
             font-size: 0.8rem;
             border-radius: 0.5rem;
             box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 70%);
@@ -86,10 +88,17 @@
             height: 3em;
             width: 110%;
             padding-left: 1rem;
+            background-color: rgb(42, 67, 90);
+            color: white;
+            border: none;
+        }
+        #searchbar:focus{
+            outline: none;
         }
         #searchbutton{
             border-radius: 1.5rem;
             font-size: 1.3rem;
+            background-color: rgb(103, 255, 204);
         }
         .info{
             position: relative;
@@ -126,6 +135,75 @@
             margin-top: 2rem;
             text-align: center;
             font-size: 2.5em;
+        }
+        @media screen and (min-width:250px) and (max-width:500px) {
+            html{
+                height: 100vh;
+                width: 100vw;
+            }
+            body{
+                height: 100%;
+                width: 100%;
+                padding: 0;
+            }
+            .mainbox{
+                height: 60%;
+                width: 100%;
+                gap: 2rem;
+            }
+            .box1{
+                height: 70%;
+                width: 100%;
+            }
+            .box2{
+                height: 70%;
+                width: 70%;
+            }
+            #weathercondition{
+                height: 50%;
+            }
+            #weathercondition .fa-solid{
+            font-size: 4rem;
+            }
+            .inputbox{
+                display: grid;
+                grid-template-columns: 80% 30%;
+                padding: 0 1rem 0 1rem;
+            }
+            #searchbar{
+                border-radius: 1rem;
+                height: 2.5em;
+                width: 110%;
+                padding-left: 0.7rem;
+            }
+            #searchbutton{
+                border-radius: 1rem;
+                font-size: 1rem;
+            }
+            .describe{
+                color: white;
+                padding: 0.2rem 0.6rem 0.2rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            .info{
+                padding: 0.5rem;
+            }
+            .location{
+                font-size: 0.8rem;
+            }
+            .fa-street-view{
+                animation: rotates 3s linear infinite alternate;
+                font-size: 1rem;
+                padding: 0.5rem;
+            }
+            #date{
+                font-size: 0.6rem;
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+            .temp{
+                font-size: 2em;
+            }
         }
     </style>
     <title>Weather App</title>
